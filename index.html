@@ -6,11 +6,17 @@
     <meta name="description" content="The portfolio of Your Name, a developer sharing their skills, projects, and contact information.">
     <title>Your Name | Developer Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <header>
+    <header class="site-header">
       <h1>Abdulkareem A. Abdullahi</h1>
-      <nav aria-label="Main navigation">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" id="primary-navigation" aria-label="Main navigation">
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#skills">Skills</a></li>

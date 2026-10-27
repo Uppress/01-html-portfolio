@@ -1,4 +1,4 @@
-/* Keep the portfolio colors, spacing, and sizing consistent throughout. */
+/* Keep colors, spacing, and sizing consistent throughout the portfolio. */
 :root {
   color-scheme: light;
   --color-bg: #f4f7fb;
@@ -23,135 +23,202 @@
   box-sizing: border-box;
 }
 
-/* Make the page readable and keep in-page links clear of the sticky header. */
+/* Set a readable baseline and leave room for the sticky header on anchor jumps. */
 html {
   line-height: 1.6;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
 }
 
-/* Set the global typeface, background, and text color. */
+/* Apply the system font and prevent long content from forcing horizontal scrolling. */
 body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-wrap: anywhere;
 }
 
-/* Scale headings smoothly across screen sizes. */
+/* Keep all images within their containers while preserving their natural proportions. */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make form controls inherit the site's typography. */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Keep all heading levels clear and compact on small screens. */
 h1,
 h2,
 h3 {
   line-height: 1.2;
 }
 
-/* Set a responsive size for the portfolio name. */
+/* Scale the portfolio name fluidly while keeping it compact on narrow screens. */
 h1 {
+  min-width: 0;
   margin: 0;
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.25rem, 5vw, 2rem);
 }
 
-/* Set a fluid size and consistent spacing for section headings. */
+/* Give section headings a responsive size and consistent spacing. */
 h2 {
   margin: 0 0 var(--space-5);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
 }
 
-/* Keep project titles prominent while scaling on smaller screens. */
+/* Keep project titles readable at every viewport size. */
 h3 {
   margin: 0 0 var(--space-3);
-  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-size: clamp(1.15rem, 4vw, 1.4rem);
 }
 
-/* Make links and buttons easy to identify and operate with a pointer or keyboard. */
+/* Give links and buttons visible pointer, hover, and keyboard focus states. */
 a,
 button {
   color: var(--color-accent);
   font: inherit;
 }
 
+/* Make links comfortable to read and smoothly interactive. */
 a {
   border-radius: 0.2rem;
   text-underline-offset: 0.2em;
   transition: color 160ms ease, background-color 160ms ease;
 }
 
+/* Increase contrast when links or buttons are hovered. */
 a:hover,
 button:hover {
   color: #393ab4;
 }
 
+/* Show a strong focus indicator for keyboard navigation. */
 a:focus-visible,
 button:focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 4px;
 }
 
-/* Keep the site name and navigation aligned in a sticky, translucent header. */
-body > header {
+/* Keep the brand and controls aligned in a compact, sticky mobile header. */
+body > .site-header {
   position: sticky;
   z-index: 10;
   top: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-5);
-  padding: var(--space-4) max(var(--space-4), calc((100% - var(--max-width)) / 2));
+  gap: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid #e4e9f1;
-  background: rgb(255 255 255 / 92%);
+  background: rgb(255 255 255 / 96%);
   backdrop-filter: blur(12px);
 }
 
-/* Display the navigation links in a compact, wrapping row. */
-nav ul {
+/* Display the accessible menu control only when JavaScript can operate it. */
+.menu-toggle {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: var(--space-2);
+  border: 1px solid #dfe3ed;
+  border-radius: 0.65rem;
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+/* Draw the hamburger icon with three simple bars. */
+.menu-toggle span {
+  display: block;
+  width: 1.2rem;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+/* Keep the navigation visible by default and let its list wrap on small screens. */
+.site-nav {
+  width: 100%;
+}
+
+.site-nav ul {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: var(--space-2) var(--space-5);
+  gap: var(--space-2) var(--space-4);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 /* Keep navigation labels readable and visually distinct from body text. */
-nav a {
+.site-nav a {
   color: var(--color-text);
   font-weight: 600;
   text-decoration: none;
 }
 
 /* Highlight navigation links on pointer hover. */
-nav a:hover {
+.site-nav a:hover {
   color: var(--color-accent);
 }
 
-/* Center the main page content and preserve comfortable space on narrow screens. */
+/* Collapse the mobile menu only when the deferred script is ready. */
+.js .menu-toggle {
+  display: flex;
+}
+
+.js .site-nav {
+  display: none;
+}
+
+.js .site-header.menu-open .site-nav {
+  display: block;
+}
+
+/* Center the page content and preserve comfortable space on narrow screens. */
 main {
   width: min(100% - 2 * var(--space-4), var(--max-width));
   margin-inline: auto;
-  padding-block: var(--space-6);
+  padding-block: var(--space-4);
 }
 
-/* Give each section a distinct surface and consistent internal spacing. */
+/* Separate each topic into a readable surface with a consistent anchor offset. */
 main > section {
-  margin-block: var(--space-6);
-  padding: clamp(var(--space-5), 5vw, var(--space-6));
+  scroll-margin-top: 6rem;
+  margin-block: var(--space-4);
+  padding: var(--space-4);
   border: 1px solid #e8edf4;
   border-radius: var(--radius);
   background: var(--color-surface);
   box-shadow: 0 8px 24px rgb(23 32 51 / 4%);
 }
 
-/* Separate the biography from its portrait and keep the image responsive. */
+/* Keep biography text readable and distinguish it from headings. */
 #about p {
   max-width: 65ch;
   color: var(--color-muted);
 }
 
-/* Crop the placeholder portrait into a responsive circle. */
+/* Present the portrait as a responsive circle without exceeding its container. */
 #about img {
   width: min(100%, 220px);
+  height: auto;
   aspect-ratio: 1;
   margin-top: var(--space-5);
   border-radius: 50%;
@@ -159,7 +226,7 @@ main > section {
   background: var(--color-bg);
 }
 
-/* Turn the skill list into flexible, compact pill badges. */
+/* Let skill badges wrap naturally to fit narrow screens. */
 #skills ul {
   display: flex;
   flex-wrap: wrap;
@@ -169,7 +236,7 @@ main > section {
   list-style: none;
 }
 
-/* Style each skill as an accent-colored pill badge. */
+/* Style each skill as an accent-colored pill. */
 #skills li {
   padding: var(--space-2) var(--space-4);
   border: 1px solid #dfe1ff;
@@ -179,13 +246,14 @@ main > section {
   font-weight: 600;
 }
 
-/* Arrange project cards responsively, letting the section heading span the grid. */
+/* Arrange project cards in an adaptive grid that fits mobile content widths. */
 #projects {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: var(--space-4);
 }
 
+/* Let the projects heading span every available card column. */
 #projects > h2 {
   grid-column: 1 / -1;
   margin-bottom: 0;
@@ -193,25 +261,27 @@ main > section {
 
 /* Give each project a clear card layout and a subtle interactive lift. */
 #projects article {
-  padding: var(--space-5);
+  min-width: 0;
+  padding: var(--space-4);
   border: 1px solid #e8edf4;
   border-radius: calc(var(--radius) * 0.75);
   background: var(--color-surface);
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
+/* Lift project cards on hover without changing the document flow. */
 #projects article:hover {
   transform: translateY(-4px);
   box-shadow: 0 14px 28px rgb(23 32 51 / 10%);
 }
 
-/* Use muted text for supporting descriptions. */
+/* Use muted color for supporting project and contact copy. */
 #projects article p,
 #contact p {
   color: var(--color-muted);
 }
 
-/* Lay out social links cleanly without changing their semantic list markup. */
+/* Let social links wrap cleanly in the contact section. */
 #contact ul {
   display: flex;
   flex-wrap: wrap;
@@ -221,9 +291,9 @@ main > section {
   list-style: none;
 }
 
-/* Distinguish the footer while keeping its content aligned to the page container. */
+/* Keep the footer distinct while aligning its spacing with the mobile page. */
 body > footer {
-  padding: var(--space-5) max(var(--space-4), calc((100% - var(--max-width)) / 2));
+  padding: var(--space-5) var(--space-4);
   border-top: 1px solid #e4e9f1;
   color: var(--color-muted);
   text-align: center;
@@ -234,7 +304,81 @@ body > footer p {
   margin: 0;
 }
 
-/* Reduce motion for visitors who prefer fewer transitions and animations. */
+/* Add room and a horizontal header layout on tablet-sized viewports. */
+@media (min-width: 768px) {
+  body > .site-header {
+    flex-wrap: nowrap;
+    gap: var(--space-5);
+    padding: var(--space-4) max(var(--space-4), calc((100% - var(--max-width)) / 2));
+  }
+
+  .js .menu-toggle {
+    display: none;
+  }
+
+  .site-nav,
+  .js .site-nav {
+    display: block;
+    width: auto;
+  }
+
+  .site-nav ul {
+    justify-content: flex-end;
+    gap: var(--space-2) var(--space-5);
+  }
+
+  main {
+    padding-block: var(--space-5);
+  }
+
+  main > section {
+    margin-block: var(--space-5);
+    padding: clamp(var(--space-5), 4vw, var(--space-6));
+  }
+
+  #projects {
+    gap: var(--space-5);
+  }
+
+  #projects article {
+    padding: var(--space-5);
+  }
+
+  body > footer {
+    padding-inline: max(var(--space-4), calc((100% - var(--max-width)) / 2));
+  }
+}
+
+/* Use wider screens for a side-by-side biography and a roomier page rhythm. */
+@media (min-width: 1024px) {
+  main {
+    padding-block: var(--space-6);
+  }
+
+  #about {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 260px);
+    align-items: center;
+    column-gap: var(--space-6);
+  }
+
+  #about h2 {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  #about p {
+    grid-column: 1;
+  }
+
+  #about img {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: 0 auto;
+  }
+}
+
+/* Respect visitors who prefer reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
