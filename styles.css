@@ -1,30 +1,248 @@
+/* Keep the portfolio colors, spacing, and sizing consistent throughout. */
+:root {
+  color-scheme: light;
+  --color-bg: #f4f7fb;
+  --color-surface: #ffffff;
+  --color-text: #172033;
+  --color-muted: #5d687b;
+  --color-accent: #5b5ce2;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --radius: 1rem;
+  --max-width: 1100px;
+}
+
+/* Use predictable sizing and provide a clean base for all elements. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* Make the page readable and keep in-page links clear of the sticky header. */
 html {
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
+/* Set the global typeface, background, and text color. */
 body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Scale headings smoothly across screen sizes. */
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+/* Set a responsive size for the portfolio name. */
+h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Set a fluid size and consistent spacing for section headings. */
+h2 {
+  margin: 0 0 var(--space-5);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+/* Keep project titles prominent while scaling on smaller screens. */
+h3 {
+  margin: 0 0 var(--space-3);
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+}
+
+/* Make links and buttons easy to identify and operate with a pointer or keyboard. */
+a,
+button {
+  color: var(--color-accent);
+  font: inherit;
+}
+
+a {
+  border-radius: 0.2rem;
+  text-underline-offset: 0.2em;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+a:hover,
+button:hover {
+  color: #393ab4;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+/* Keep the site name and navigation aligned in a sticky, translucent header. */
+body > header {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding: var(--space-4) max(var(--space-4), calc((100% - var(--max-width)) / 2));
+  border-bottom: 1px solid #e4e9f1;
+  background: rgb(255 255 255 / 92%);
+  backdrop-filter: blur(12px);
+}
+
+/* Display the navigation links in a compact, wrapping row. */
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Keep navigation labels readable and visually distinct from body text. */
+nav a {
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Highlight navigation links on pointer hover. */
+nav a:hover {
+  color: var(--color-accent);
+}
+
+/* Center the main page content and preserve comfortable space on narrow screens. */
+main {
+  width: min(100% - 2 * var(--space-4), var(--max-width));
+  margin-inline: auto;
+  padding-block: var(--space-6);
+}
+
+/* Give each section a distinct surface and consistent internal spacing. */
+main > section {
+  margin-block: var(--space-6);
+  padding: clamp(var(--space-5), 5vw, var(--space-6));
+  border: 1px solid #e8edf4;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: 0 8px 24px rgb(23 32 51 / 4%);
+}
+
+/* Separate the biography from its portrait and keep the image responsive. */
+#about p {
+  max-width: 65ch;
+  color: var(--color-muted);
+}
+
+/* Crop the placeholder portrait into a responsive circle. */
+#about img {
+  width: min(100%, 220px);
+  aspect-ratio: 1;
+  margin-top: var(--space-5);
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--color-bg);
+}
+
+/* Turn the skill list into flexible, compact pill badges. */
+#skills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Style each skill as an accent-colored pill badge. */
+#skills li {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid #dfe1ff;
+  border-radius: 999px;
+  background: #f1f1ff;
+  color: #393ab4;
+  font-weight: 600;
+}
+
+/* Arrange project cards responsively, letting the section heading span the grid. */
+#projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-5);
+}
+
+#projects > h2 {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+/* Give each project a clear card layout and a subtle interactive lift. */
+#projects article {
+  padding: var(--space-5);
+  border: 1px solid #e8edf4;
+  border-radius: calc(var(--radius) * 0.75);
+  background: var(--color-surface);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+#projects article:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgb(23 32 51 / 10%);
+}
+
+/* Use muted text for supporting descriptions. */
+#projects article p,
+#contact p {
+  color: var(--color-muted);
+}
+
+/* Lay out social links cleanly without changing their semantic list markup. */
+#contact ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Distinguish the footer while keeping its content aligned to the page container. */
+body > footer {
+  padding: var(--space-5) max(var(--space-4), calc((100% - var(--max-width)) / 2));
+  border-top: 1px solid #e4e9f1;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+/* Remove default paragraph spacing inside the footer. */
+body > footer p {
   margin: 0;
 }
 
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
+/* Reduce motion for visitors who prefer fewer transitions and animations. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
 }
